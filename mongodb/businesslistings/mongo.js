@@ -32,36 +32,66 @@ server.get("/search", async (request, response) => {
             {
                 $search: {
                     compound: {
-                        should: [{
+                        should: [
+                        {
                             autocomplete: {
                                 query: `${request.query.query}`,
                                 path: 'name',
                                 fuzzy: {
-                                    "maxEdits": 2,
-                                    "prefixLength": 3
+                                    'maxEdits': 2,
+                                    'prefixLength': 3
                                 },
-                            },
+                                "score": { "boost": { "value": 1 } }
+                            }
+                        },
+                        {
                             autocomplete: {
                                 query: `${request.query.query}`,
                                 path: 'primary_service',
                                 fuzzy: {
-                                    "maxEdits": 2,
-                                    "prefixLength": 3
+                                    'maxEdits': 2,
+                                    'prefixLength': 3
                                 },
-                            },
+                                "score": { "boost": { "value": 3 } }
+                            }
+                        },
+                        {
                             autocomplete: {
                                 query: `${request.query.query}`,
                                 path: 'description',
                                 fuzzy: {
-                                    "maxEdits": 2,
-                                    "prefixLength": 3
+                                    'maxEdits': 2,
+                                    'prefixLength': 3
                                 },
+                                "score": { "boost": { "value": 1 } }
                             }
                         }]
-                    }
+                    },
+                    // highlight: {
+                    //     path: 'primary_service'
+                    // }
                 }
             },
-            {$limit: 5}
+            {
+                $limit: 5
+            },
+            {
+                $project: {
+                    _id: 0,
+                    name: 1,
+                    description: 1,
+                    category: 1,
+                    primary_service: 1,
+                    secondary_service: 1,
+                    tertiary_service: 1,
+                    score: {
+                        $meta: 'searchScore'
+                    },
+                    // highlight: {
+                    //     $meta: 'searchHighlights'
+                    // }
+                }
+            }
         ]).toArray();
         response.send(result);
     } catch (e) {
