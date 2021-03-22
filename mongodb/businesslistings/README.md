@@ -15,6 +15,6 @@ Search in atlas as be [standard text](https://docs.atlas.mongodb.com/reference/a
 - Run connection to db using `DEBUG=express:* node mongo.js`
 - In postman (or equivalent) `GET http://localhost:3000/search?query=Barbra`. Try additional queries like the following
 	- `fly cass serv`
-- 
+- To run on Browser, run `npx serve` on another terminal and browse `http://localhost:5000` 
 
 
