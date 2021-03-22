@@ -31,6 +31,7 @@ server.get("/search", async (request, response) => {
         let result = await collection.aggregate([
             {
                 $search: {
+                    index: 'default',
                     compound: {
                         should: [
                         {
@@ -67,9 +68,6 @@ server.get("/search", async (request, response) => {
                             }
                         }]
                     },
-                    // highlight: {
-                    //     path: 'primary_service'
-                    // }
                 }
             },
             {
@@ -87,9 +85,6 @@ server.get("/search", async (request, response) => {
                     score: {
                         $meta: 'searchScore'
                     },
-                    // highlight: {
-                    //     $meta: 'searchHighlights'
-                    // }
                 }
             }
         ]).toArray();
