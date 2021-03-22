@@ -38,11 +38,11 @@ server.get("/search", async (request, response) => {
                             autocomplete: {
                                 query: `${request.query.query}`,
                                 path: 'name',
-                                fuzzy: {
-                                    'maxEdits': 2,
-                                    'prefixLength': 3
-                                },
-                                "score": { "boost": { "value": 1 } }
+                                // fuzzy: {
+                                //     'maxEdits': 2,
+                                //     'prefixLength': 3
+                                // },
+                                //"score": { "boost": { "value": 1 } }
                             }
                         },
                         {
@@ -53,7 +53,7 @@ server.get("/search", async (request, response) => {
                                     'maxEdits': 2,
                                     'prefixLength': 3
                                 },
-                                "score": { "boost": { "value": 3 } }
+                                //"score": { "boost": { "value": 3 } }
                             }
                         },
                         {
@@ -64,7 +64,7 @@ server.get("/search", async (request, response) => {
                                     'maxEdits': 2,
                                     'prefixLength': 3
                                 },
-                                "score": { "boost": { "value": 1 } }
+                                //"score": { "boost": { "value": 1 } }
                             }
                         }]
                     },
