@@ -9,6 +9,7 @@ For the array fields, make sure the column name is in the form name.0, name.1 et
 
 - Install deps using `npm install mongodb express body-parser cors --save`
 - Run connection to db using `DEBUG=express:* node mongo.js`
-- IN postman (or equivalent) `GET http://localhost:3000/search?query=Barbra`
+- In postman (or equivalent) `GET http://localhost:3000/search?query=Barbra`. Try additional queries like the following
+	- `fly cass serv`
 
 

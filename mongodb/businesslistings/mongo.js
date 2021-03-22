@@ -30,18 +30,38 @@ server.get("/search", async (request, response) => {
     try {
         let result = await collection.aggregate([
             {
-                "$search": {
-                    "autocomplete": {
-                        "query": `${request.query.query}`,
-                        "path": "description",
-                        "fuzzy": {
-                            "maxEdits": 2,
-                            "prefixLength": 3
-                        }
+                $search: {
+                    compound: {
+                        should: [{
+                            autocomplete: {
+                                query: `${request.query.query}`,
+                                path: 'name',
+                                fuzzy: {
+                                    "maxEdits": 2,
+                                    "prefixLength": 3
+                                },
+                            },
+                            autocomplete: {
+                                query: `${request.query.query}`,
+                                path: 'primary_service',
+                                fuzzy: {
+                                    "maxEdits": 2,
+                                    "prefixLength": 3
+                                },
+                            },
+                            autocomplete: {
+                                query: `${request.query.query}`,
+                                path: 'description',
+                                fuzzy: {
+                                    "maxEdits": 2,
+                                    "prefixLength": 3
+                                },
+                            }
+                        }]
                     }
-                },
+                }
             },
-            {$limit: 20}
+            {$limit: 5}
         ]).toArray();
         response.send(result);
     } catch (e) {
