@@ -9,6 +9,8 @@ The autocomplete does not support string arrays, hence the option `--useArrayInd
 
 ## Search query over HTTP
 
+Search in atlas as be [standard text](https://docs.atlas.mongodb.com/reference/atlas-search/text/#std-label-text-ref), [wildcard](https://docs.atlas.mongodb.com/reference/atlas-search/wildcard/#std-label-wildcard-ref)(query with special characters), [fuzzy](https://docs.atlas.mongodb.com/reference/atlas-search/text/#fuzzy-examples)(strings similar to search item) or [autocomplete](https://docs.atlas.mongodb.com/reference/atlas-search/autocomplete/#std-label-autocomplete-ref)(query phrase with character sequence from incomplete input). In this example we look at autocomplete with fuzzy included.
+
 - Install deps using `npm install mongodb express body-parser cors --save`
 - Run connection to db using `DEBUG=express:* node mongo.js`
 - In postman (or equivalent) `GET http://localhost:3000/search?query=Barbra`. Try additional queries like the following
